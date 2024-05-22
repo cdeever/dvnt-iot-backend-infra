@@ -29,6 +29,8 @@ packer_cache/
 *.box
 output-*/
 *.tmp
+*.log
+
 
 # Ansible ignores
 *.retry

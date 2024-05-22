@@ -87,7 +87,7 @@ build {
   ]
 
   provisioner "ansible" {
-    playbook_file = "${path.root}/ansible/prometheus_exporter.yml"
+    playbook_file = "${path.root}/ansible/prometheus_exporter.yaml"
 
     extra_arguments = [
       "-vv" // Verbose mode
