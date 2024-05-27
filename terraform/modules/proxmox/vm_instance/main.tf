@@ -1,6 +1,6 @@
 
 resource "proxmox_vm_qemu" "vm_instance" {
-  target_node = "pve"
+  target_node = var.node
   clone       = "fedora-server-40-1.14"
   name        = "IoT-Logger"
 
