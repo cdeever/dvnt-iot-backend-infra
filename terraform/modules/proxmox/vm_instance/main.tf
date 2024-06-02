@@ -1,8 +1,17 @@
+terraform {
+  required_providers {
+    proxmox = {
+      source = "telmate/proxmox"
+      version = "3.0.1-rc1"
+    }
+  }
+}
 
 resource "proxmox_vm_qemu" "vm_instance" {
-  target_node = var.node
+
+  target_node = var.proxmox_config.proxmox_node
   clone       = "fedora-server-40-1.14"
-  name        = "IoT-Logger"
+  name        = var.name
 
   agent       = 1
 
