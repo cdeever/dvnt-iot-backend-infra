@@ -50,35 +50,17 @@ module "vm_instance" {
   source = "./modules/proxmox/vm_instance"
 
   # Pass variables to the module
-  name = "iot-logagg"
+
 
   # Add other required variables
   proxmox_config = var.proxmox_config
 
+#  host_ip = local.inventory["iot-logagg"].ip
+  name = local.inventory["iot-logagg"].hostname
+
+
   providers = {
     proxmox = proxmox
   }
-}
-
-
-resource "proxmox_vm_qemu" "iot_web_vm" {
-
-
-}
-
-resource "proxmox_vm_qemu" "iot_logagg_vm" {
-
-}
-
-resource "proxmox_vm_qemu" "iot_mqtt_vm" {
-
-}
-
-resource "proxmox_vm_qemu" "iot_api_vm" {
-
-}
-
-resource "proxmox_vm_qemu" "iot_monitor_vm" {
-
 }
 
