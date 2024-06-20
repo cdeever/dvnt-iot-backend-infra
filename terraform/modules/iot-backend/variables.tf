@@ -3,8 +3,9 @@ variable "proxmox_config" {
   type = map(string)
 }
 
-variable "name" {
-  type        = string
-  description = "VM Name"
+variable "inventory" {
+  type = map(object({
+    ip       = string
+    hostname = string
+  }))
 }
-

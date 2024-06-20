@@ -46,21 +46,20 @@ locals {
 
 
 
-module "vm_instance" {
-  source = "./modules/proxmox/vm_instance"
+module "iot_backend" {
+  source = "./modules/iot-backend"
 
   # Pass variables to the module
-
+  inventory = local.inventory
 
   # Add other required variables
   proxmox_config = var.proxmox_config
-
-#  host_ip = local.inventory["iot-logagg"].ip
-  name = local.inventory["iot-logagg"].hostname
 
 
   providers = {
     proxmox = proxmox
   }
 }
+
+
 
