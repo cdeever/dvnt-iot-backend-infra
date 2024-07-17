@@ -95,4 +95,11 @@ build {
     sftp_command = "/usr/libexec/openssh/sftp-server -e"
     use_proxy = false
   }
+
+  provisioner "shell" {
+    inline = [
+      "sudo dnf -y update",
+      "sudo dnf -y install podman"
+    ]
+  }
 }
