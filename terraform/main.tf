@@ -8,7 +8,7 @@ terraform {
     opnsense = {
       source = "gxben/opnsense"
     }
-  }  
+  }
 }
 
 
