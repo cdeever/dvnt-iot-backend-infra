@@ -26,6 +26,7 @@ resource "proxmox_vm_qemu" "iot-logagg" {
       scsi0 {
         disk {
           storage = "local-lvm-big"
+          format  = "qcow2"
           size    = 128
         }
       }

@@ -98,7 +98,7 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sudo dnf -y update",
+#     "sudo dnf -y update",
       "sudo dnf -y install podman"
     ]
   }
