@@ -1,0 +1,49 @@
+---
+- name: Debug dev_users (inside role)
+  ansible.builtin.debug:
+    var: dev_users
+
+- name: Ensure primary groups for dev users exist
+  ansible.builtin.group:
+    name: "{{ user.primary_group | default(user.name) }}"
+    state: present
+  loop: "{{ dev_users | default([]) }}"
+  loop_control:
+    loop_var: user
+
+- name: Ensure dev users exist
+  ansible.builtin.user:
+    name: "{{ user.name }}"
+    group: "{{ user.primary_group | default(user.name) }}"
+    groups: "{{ user.extra_groups | default([]) }}"
+    append: true
+    shell: "{{ user.shell | default('/bin/bash') }}"
+    create_home: true
+    state: present
+  loop: "{{ dev_users | default([]) }}"
+  loop_control:
+    loop_var: user
+
+- name: Ensure .ssh directory exists for dev users
+  ansible.builtin.file:
+    path: "{{ user.home | default('/home/' + user.name) }}/.ssh"
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.primary_group | default(user.name) }}"
+    mode: '0700'
+  loop: "{{ dev_users | default([]) }}"
+  loop_control:
+    loop_var: user
+
+- name: Install authorized_keys for dev users from URL (GitHub or other)
+  ansible.builtin.get_url:
+    url: "{{ user.github_keys_url }}"
+    dest: "{{ user.home | default('/home/' + user.name) }}/.ssh/authorized_keys"
+    owner: "{{ user.name }}"
+    group: "{{ user.primary_group | default(user.name) }}"
+    mode: '0600'
+  when: user.github_keys_url is defined
+  loop: "{{ dev_users | default([]) }}"
+  loop_control:
+    loop_var: user
+

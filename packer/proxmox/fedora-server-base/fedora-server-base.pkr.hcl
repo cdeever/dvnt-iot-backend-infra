@@ -41,7 +41,7 @@ source "proxmox-iso" "fedora-kickstart" {
     "<wait5>",
     "c<wait>",
     "<enter><wait>",
-    "linux (cd)/images/pxeboot/vmlinuz inst.stage2=hd:LABEL=Fedora-S-dvd-x86_64-40 ip=dhcp inst.cmdline inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart.cfg<enter><wait5>",
+    "linux (cd)/images/pxeboot/vmlinuz inst.stage2=hd:LABEL=Fedora-S-dvd-x86_64-43 ip=dhcp inst.cmdline inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart.cfg<enter><wait5>",
     "initrd (cd)/images/pxeboot/initrd.img<enter><wait15>", 
     "boot<enter>"
   ]
@@ -56,7 +56,7 @@ source "proxmox-iso" "fedora-kickstart" {
   
   http_directory           = "http"
   insecure_skip_tls_verify = true
-  iso_file                 = "local:iso/Fedora-Server-dvd-x86_64-40-1.14.iso"
+  iso_file                 = "local:iso/Fedora-Server-dvd-x86_64-43-1.6.iso"
   iso_checksum             = "none"
 
   network_adapters {
@@ -76,8 +76,8 @@ source "proxmox-iso" "fedora-kickstart" {
   ssh_username                       = "a_autoprov"
   ssh_agent_auth                     = true
   qemu_agent                         = true
-  template_description               = "Fedora Server 40-1.14, generated on ${timestamp()}"
-  template_name                      = "fedora-server-40-1.14"
+  template_description               = "Fedora Server 43-1.6, generated on ${timestamp()}"
+  template_name                      = "fedora-server-43-1.6"
   unmount_iso                        = true
 }
 
@@ -86,20 +86,15 @@ build {
     "source.proxmox-iso.fedora-kickstart"
   ]
 
-  provisioner "ansible" {
-    playbook_file = "${path.root}/ansible/prometheus_exporter.yaml"
-
-    extra_arguments = [
-      "-vv" // Verbose mode
-    ]
-    sftp_command = "/usr/libexec/openssh/sftp-server -e"
-    use_proxy = false
-  }
-
   provisioner "shell" {
     inline = [
 #     "sudo dnf -y update",
-      "sudo dnf -y install podman"
+      "sudo dnf -y install podman",
+      "sudo dnf -y install python3-libdnf5",
+      "sudo mkdir -p /tmp/.ansible-root",
+      "sudo chmod 0700 /tmp/.ansible-root",
+      "sudo chown root:root /tmp/.ansible-root"
+
     ]
   }
 }

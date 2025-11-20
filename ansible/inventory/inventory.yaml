@@ -1,0 +1,30 @@
+all:
+  children:
+    admin:
+      hosts:
+        admin02:
+          ansible_host: 192.168.10.97
+          hostname: vdvntm-admin-02
+        admin03:
+          ansible_host: 192.168.10.96
+          hostname: vdvntm-admin-03
+    iot:
+      hosts:
+        iot-web:
+          ansible_host: 192.168.11.10
+          hostname: vdvntmd-iot-web
+        iot-logagg:
+          ansible_host: 192.168.11.11
+          hostname: vdvntmd-iot-logagg
+        iot-mqtt1:
+          ansible_host: 192.168.11.12
+          hostname: vdvntmd-iot-mqtt1
+        iot-mqtt2:
+          ansible_host: 192.168.11.13
+          hostname: vdvntmd-iot-mqtt2
+        iot-api:
+          ansible_host: 192.168.11.14
+          hostname: vdvntmd-iot-api
+        iot-monitor:
+          ansible_host: 192.168.11.15
+          hostname: vdvntmd-iot-monitor

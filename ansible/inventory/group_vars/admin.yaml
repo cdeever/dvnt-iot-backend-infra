@@ -1,0 +1,12 @@
+# group_vars/admin.yml
+
+# Use system Python that plays nicest with dnf/dnf5
+ansible_python_interpreter: /usr/bin/python3
+
+dev_users:
+  - name: cdeever
+    primary_group: cdeever
+    extra_groups:
+      - wheel
+    home: /home/cdeever
+    github_keys_url: "https://github.com/cdeever.keys"

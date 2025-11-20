@@ -1,0 +1,9 @@
+---
+- name: Bootstrap dvnt admin servers
+  hosts: admin
+  become: true
+
+  roles:
+    - role: common
+    - role: admin
+    - role: dev_users

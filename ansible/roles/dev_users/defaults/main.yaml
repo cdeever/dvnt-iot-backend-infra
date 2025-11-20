@@ -1,0 +1,3 @@
+---
+# No default users — host_vars or group_vars should define dev_users.
+dev_users: []

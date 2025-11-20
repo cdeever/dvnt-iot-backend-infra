@@ -1,0 +1,13 @@
+---
+- name: Ensure Ansible is installed
+  package:
+    name: ansible
+    state: present
+
+- name: Create workspace directory
+  file:
+    path: /opt/dvnt
+    state: directory
+    owner: a_autoprov
+    group: a_autoprov
+    mode: '0755'

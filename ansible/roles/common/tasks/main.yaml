@@ -1,0 +1,15 @@
+---
+- name: Set system hostname
+  become: true
+  ansible.builtin.hostname:
+    name: "{{ hostname | default(inventory_hostname) }}"
+
+- name: Ensure base packages are present
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - git
+      - vim
+      - tmux
+      - htop
+    state: present
